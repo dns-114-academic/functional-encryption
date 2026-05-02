@@ -218,7 +218,7 @@ The ciphertext is `c = (M̃_univ, IBE.Enc(mpk_IBE, K_r))` where `K_r` is the Gar
 
 ## Code Verification Report
 
-### `ipfe_limit.py` — ✅ Correct
+### `ipfe_limit.py` — (✓) Correct
 
 All four demonstration cases execute as expected:
 - **Case 1**: ⟨[12,15,9,7], [1,1,1,0]⟩ = 36 recovered exactly. The algebraic cancellation of `r` is verified.
@@ -228,7 +228,7 @@ All four demonstration cases execute as expected:
 
 The Dec formula `Σ cᵢyᵢ - c₀·sk_y mod p` is **exactly consistent** with the proof in §3 Part 2 of `proofs.tex`.
 
-### `circuit_vs_tm.py` — ✅ Correct (2 issues clarified)
+### `circuit_vs_tm.py` — (✓) Correct (2 issues clarified)
 
 All circuit evaluations, depth/size calculations, and TM simulations are correct.
 
@@ -238,18 +238,18 @@ All circuit evaluations, depth/size calculations, and TM simulations are correct
 
 **Abstraction level clarification (v2):** `TM_DESC_SIZES["M_parity_any"] = 4` counts abstract rules (where `q_{.}` covers both `q_even` and `q_odd`). The detailed implementation in `fe_mt_demo.py` uses 6 concrete delta entries. Both are consistent representations at different abstraction levels. Comment added.
 
-### `fe_mt_demo.py` — ✅ Correct
+### `fe_mt_demo.py` — (✓) Correct
 
 All three TM implementations (`M_count`, `M_parity`, `M_runs`) are formally faithful to the Sipser definition (Q, Σ, Γ, δ, q_0, q_acc). Step-by-step verification on `"1100111"`:
-- `M_count = 5` (five 1-bits: `11` and `111`) ✅
-- `M_parity = 1` (XOR: 1^1^0^0^1^1^1 = 1, odd parity) ✅
-- `M_runs = 3` (three contiguous blocks: `11`, `00`, `111`) ✅
+- `M_count = 5` (five 1-bits: `11` and `111`) (✓)
+- `M_parity = 1` (XOR: 1^1^0^0^1^1^1 = 1, odd parity) (✓)
+- `M_runs = 3` (three contiguous blocks: `11`, `00`, `111`) (✓)
 
 The key invariant — same functional key `sk_M` works for inputs from 4 bits to 1000 bits — is correctly demonstrated for all three machines.
 
 `fe_enc = identity` is explicitly declared as a simulation (Garbled RAM not implemented), consistent with Construction 4.1 in `proofs.tex`.
 
-### Code ↔ `proofs.tex` Coherence — ✅ Consistent
+### Code ↔ `proofs.tex` Coherence — (✓) Consistent
 
 | Claim in `proofs.tex` | Code verification |
 |-----------------------|-------------------|
