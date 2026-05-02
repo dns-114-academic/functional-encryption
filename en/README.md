@@ -10,7 +10,7 @@
 **Functional Encryption (FE)** allows revealing only `f(x)` from an encryption of `x`, without exposing `x` itself. This project traces the natural progression of expressiveness:
 
 ```
-IPFE                 →   FE for Circuits   →   FE for TMs              →   Registered FE/TM
+IPFE                 —>   FE for Circuits   —>   FE for TMs              —>   Registered FE/TM
 (linear, fixed dim)      (boolean, fixed n)     (any TM, |x| ∈ ℕ*)         (no authority)
 DDH / LWE                LWE (2012)             LWE (2021–22)               LWE (2025)
 ```
@@ -55,9 +55,9 @@ python3 code/fe_mt_demo.py
 Simulates the **DDH-IPFE** scheme from Abdalla et al. (PKC 2015) using linear arithmetic over Z_p.
 
 Decryption computes `Σ cᵢyᵢ − r·sk_y mod p`, which cancels the random term `r` exactly and yields `⟨x, y⟩`. Four cases are demonstrated:
-- Case 1: correct dimension → `⟨x, y⟩` recovered ✅
-- Case 2: `enc` with wrong-dimension vector → `ValueError`
-- Case 3: `keygen` with wrong-dimension vector → `ValueError`
+- Case 1: correct dimension —> `⟨x, y⟩` recovered (✓)
+- Case 2: `enc` with wrong-dimension vector —> `ValueError`
+- Case 3: `keygen` with wrong-dimension vector —> `ValueError`
 - Case 4: new `Setup` invalidates all previous keys
 
 ### `circuit_vs_tm.py` — Boolean Circuits vs Turing Machines
@@ -70,7 +70,7 @@ Quantitatively demonstrates the difference between **non-uniform** (circuits) an
 | 100          | Θ(100) gates              | 3 δ-rules (constant)  |
 | 10,000       | Θ(10,000) gates           | 3 δ-rules (constant)  |
 
-> ⚠️ **Coherence note**: `C_count_N` computes an **OR** (is any bit 1?), while `M_count_any` counts the integer number of 1-bits. These are intentionally different functions — the key point is description *size* growth, not functional equivalence. Circuit ↔ TM functional coherence is verified in Part 5 using `C_parity_4` and `tm_parity` (same XOR function).
+> **Coherence note**: `C_count_N` computes an **OR** (is any bit 1?), while `M_count_any` counts the integer number of 1-bits. These are intentionally different functions — the key point is description *size* growth, not functional equivalence. Circuit ↔ TM functional coherence is verified in Part 5 using `C_parity_4` and `tm_parity` (same XOR function).
 
 ### `fe_mt_demo.py` — FE for TM Simulation
 
@@ -90,7 +90,7 @@ Three machines instantiated: `M_count` (count 1-bits), `M_parity` (XOR parity), 
 The document covers four results, each preceded by an **Intuition box**:
 
 1. **IPFE Lower Bound** (§3) — proof by contradiction: a hypothetical cross-dimension conversion mechanism would break IND-CPA.
-2. **LWE Hardness** (§2.10) — role of noise, Regev reduction (STOC 2005): GapSVP hard → LWE hard → post-quantum resistance.
+2. **LWE Hardness** (§2.10) — role of noise, Regev reduction (STOC 2005): GapSVP hard —> LWE hard —> post-quantum resistance.
 3. **FE for TMs — Selective Security** (§4) — IBE-LWE + Garbled RAM construction, proof by hybrid argument over `q` games.
 4. **Adaptive Security via Punctured Programming** (§5) — punctured key `msk[x*]` and blind FHE evaluation.
 
