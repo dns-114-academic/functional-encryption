@@ -9,7 +9,7 @@
 Le **Chiffrement Fonctionnel (FE)** permet de ne révéler que `f(x)` depuis un chiffré de `x`, sans exposer `x` entier. Ce projet explore la progression naturelle des expressivités :
 
 ```
-IPFE               →   FE pour Circuits   →   FE pour MT             →   Registered FE/MT
+IPFE               —>   FE pour Circuits   —>   FE pour MT             —>   Registered FE/MT
 (linéaire, n fixé)     (booléen, n fixé)      (toute MT, |x| ∈ ℕ*)       (sans autorité)
 DDH / LWE              LWE (2012)             LWE (2021–22)               LWE (2025)
 ```
@@ -54,9 +54,9 @@ python3 code/fe_mt_demo.py
 Simule le schéma **DDH-IPFE** d'Abdalla et al. (PKC 2015) en arithmétique linéaire sur Z_p.
 
 Le déchiffrement calcule `Σ cᵢyᵢ − r·sk_y mod p`, ce qui annule exactement le terme aléatoire `r` et donne `⟨x, y⟩`. Quatre cas sont démontrés :
-- Cas 1 : fonctionnement normal (dim correcte) → `⟨x, y⟩` récupéré ✅
-- Cas 2 : `enc` avec un vecteur de mauvaise dimension → `ValueError`
-- Cas 3 : `keygen` avec un vecteur de mauvaise dimension → `ValueError`
+- Cas 1 : fonctionnement normal (dim correcte) —> `⟨x, y⟩` récupéré (✓)
+- Cas 2 : `enc` avec un vecteur de mauvaise dimension —> `ValueError`
+- Cas 3 : `keygen` avec un vecteur de mauvaise dimension —> `ValueError`
 - Cas 4 : nouveau `Setup` invalide toutes les clés précédentes
 
 ### `circuit_vs_tm.py` — Circuits booléens vs Machines de Turing
@@ -69,7 +69,7 @@ Montre quantitativement la différence entre calcul **non-uniforme** (circuits) 
 | 100            | Θ(100) portes             | 3 règles δ (constant) |
 | 10 000         | Θ(10 000) portes          | 3 règles δ (constant) |
 
-> ⚠️ **Note de cohérence** : `C_count_N` calcule un **OR** (au moins un bit à 1), tandis que `M_count_any` compte le nombre entier de bits à 1. Ces deux fonctions sont intentionnellement différentes — le point clé est la croissance de la *description*, pas la cohérence fonctionnelle. La vérification circuit ↔ MT est faite en Partie 5 avec `C_parity_4` et `tm_parity` (même fonction XOR).
+> **Note de cohérence** : `C_count_N` calcule un **OR** (au moins un bit à 1), tandis que `M_count_any` compte le nombre entier de bits à 1. Ces deux fonctions sont intentionnellement différentes — le point clé est la croissance de la *description*, pas la cohérence fonctionnelle. La vérification circuit ↔ MT est faite en Partie 5 avec `C_parity_4` et `tm_parity` (même fonction XOR).
 
 ### `fe_mt_demo.py` — Simulation FE pour MT
 
@@ -89,7 +89,7 @@ Trois machines instanciées : `M_count` (compte les 1), `M_parity` (parité XOR)
 Le document couvre quatre résultats, chacun précédé d'une **boîte Intuition** :
 
 1. **Borne inférieure de l'IPFE** (§3) — preuve par l'absurde : un mécanisme de conversion hypothétique entre dimensions casserait IND-CPA.
-2. **Difficulté de LWE** (§2.10) — rôle du bruit, réduction de Regev (STOC 2005) : GapSVP difficile → LWE difficile → résistance post-quantique.
+2. **Difficulté de LWE** (§2.10) — rôle du bruit, réduction de Regev (STOC 2005) : GapSVP difficile —> LWE difficile —> résistance post-quantique.
 3. **FE pour MT — sécurité sélective** (§4) — construction IBE-LWE + Garbled RAM, preuve par hybrid argument en `q` jeux.
 4. **Sécurité adaptive via Punctured Programming** (§5) — clé percée `msk[x*]` et évaluation FHE à l'aveugle.
 
